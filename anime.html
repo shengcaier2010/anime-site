@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime Hub</title>
+<style>
+body{background:#0a0a0a;color:white;font-family:Arial;margin:0;padding:20px}
+h1{color:#ff0055;text-align:center;letter-spacing:3px;font-size:28px}
+h2{color:white;margin:40px 0 15px 5px;border-left:4px solid #ff0055;padding-left:10px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px;max-width:1200px;margin:auto}
+.card{background:#161616;border-radius:12px;overflow:hidden;border:1px solid #222}
+.card img{width:100%;height:250px;object-fit:cover;background:#222}
+.info{padding:10px}
+.info h3{font-size:13px;margin:0 0 6px 0;height:32px;overflow:hidden}
+.time{font-size:11px;color:#999;margin-bottom:7px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-size:10px;border:1px solid #ff0055;color:#ff0055;padding:2px 7px;border-radius:20px}
+.btn{display:block;background:#ff0055;color:white;text-align:center;padding:7px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:12px}
+</style>
+</head>
+<body>
+
+<h1>YOU TUBE ANIME</h1>
+
+<h2>🎬 FILM ANIME</h2>
+<div class="grid" id="filmGrid"></div>
+
+<h2>📺 EPISODE ANIME</h2>
+<div class="grid" id="episodeGrid"></div>
+
+<script>
+let animes = [
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrX2BhO40PjUFJ9J5dI6TRSNYurG1ONw0wlLSl9J2VvyJMFWYAMC27iCTcSkNQ3rn9gkDG&s=10",
+    name:"Love, Chunibyo & Other Delusions",
+    time:"4h 07m",
+    dub:"English",
+    genre:["Romance","Comedy","School"],
+    type:"film",
+    link:"https://www.youtube.com/watch?v=q-R9CQGPFuM"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9uGf6hrJrdacDNQjKQNa1hU2EBAnDgWcvafdM7mnNNN3mPM3rfODurZlx7qDKEgvRQkKf&s=10",
+    name:"Your Name",
+    time:"1h 46m",
+    dub:"English",
+    genre:["Romance","Drama","Supernatural"],
+    type:"film",
+    link:"https://youtu.be/SGiPDyiKWeg?si=wY7fXqbGiJiGAKU7"
+  },
+  {
+    img:"https://cdn.myanimelist.net/images/anime/1122/96435.jpg",
+    name:"A Silent Voice",
+    time:"1h 46m",
+    dub:"English",
+    genre:["Romance","Drama","Supernatural"],
+    type:"film",
+    link:"https://youtu.be/pWenBEeRIMA?si=gUvLz3mW0a3Z_hHK"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjdxxEvrShv5DiZnYXGtOrgxU_iUp0KIgpMoKGpZ_OpEidMb7q9xDGU7rE0cLluIt5qtCN1g&s=10",
+    name:"Fire Works",
+    time:"1h 32m",
+    dub:"English",
+    genre:["Romance","Drama","Supernatural"],
+    type:"film",
+    link:"https://youtu.be/5YJGhL2jP0o?si=V4W22tGcnD4xGvoQ"
+  },
+  {
+    img:"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQdKdUMeH7eUnGuzvH5JJu62cAVvFW-_4es4896M4RIOhrWXrWN",
+    name:"The Girl Downstairs",
+    time:"4h 12m",
+    dub:"English",
+    genre:["Romance","Drama","Comedy"],
+    type:"film",
+    link:"https://youtu.be/Rfazwo7GF5s?si=m6L-d_MrLZW4WPLD"
+  },
+  {
+    img:"https://m.media-amazon.com/images/M/MV5BYmJlYjJlZWItOTBiMy00NzZhLTllNGItYjM1NjFmNjYwZWI1XkEyXkFqcGc@._V1_.jpg",
+    name:"Attack on Titan Part 1 - Guren no Yumiya",
+    time:"1h 59m",
+    dub:"English",
+    genre:["Action","Dark","Serious"],
+    type:"film",
+    link:"https://youtu.be/AHT772bRkMY?si=ACkO_anutRIdPqwr"
+  },
+  {
+    img:"https://m.media-amazon.com/images/M/MV5BYmJlYjJlZWItOTBiMy00NzZhLTllNGItYjM1NjFmNjYwZWI1XkEyXkFqcGc@._V1_.jpg",
+    name:"Attack on Titan Part 2 - Jiyuu no Tsubasa",
+    time:"2h",
+    dub:"English",
+    genre:["Action","Dark","Serious"],
+    type:"film",
+    link:"https://youtu.be/oVlEVivdY-Y?si=MXtq7rxtm6d7NIHH"
+  },
+  {
+    img:"https://static0.cbrimages.com/wordpress/wp-content/uploads/2017/02/Attack-on-Titan-Season-2-poster.jpg",
+    name:"Attack on Titan Season 2 the Movie: Roar of Awakening",
+    time:"1h 59m",
+    dub:"English",
+    genre:["Action","Dark","Serious"],
+    type:"film",
+    link:"https://youtu.be/PvvQZInIagQ?si=e6Cyolh40y2zyp24"
+  },
+  {
+    img:"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR-e1C8zw_WrjKV1OvNW7nK8dZulXa9Z242RPZR78Iz8dcDKP1b",
+    name:"The Daily Life of the Immortal King S1-S4 FULL Episodes",
+    time:"12h 56m",
+    dub:"English SUB",
+    genre:["Action","Comedy","Fantasy","School"],
+    type:"film",
+    link:"https://youtu.be/0XbiaoEieWg?si=J-lLUMQVXioggP4j"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQETTgtMxTm40itIFs2qZfwZLSB3ei5_UMul_-hnpb8Zhgtk1Ek",
+    name:"TOUGEN ANKI: Season 1 (2025)",
+    time:"8h 34m",
+    dub:"Japanese",
+    genre:["Action","Fantasy","Supernatural"],
+    type:"film",
+    link:"https://youtu.be/RRkAY_5PMvU?si=pm10hr3ATzNoxgyw"
+  },
+  {
+    img:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
+    name:"Demon Slayer Episode 1-24 Full",
+    time:"8h 12m",
+    dub:"English",
+    genre:["Action","Fantasy","Historical"],
+    type:"film",
+    link:"https://youtu.be/S-EkEuhR7zA?si=-6EixtptsC5pbXc8"
+  },
+
+
+
+
+
+
+
+
+
+  {
+    img:"https://m.media-amazon.com/images/M/MV5BNzIwNmYxMmUtMzA0Zi00NmE4LTk4NDEtMWFkOGM0MzJiYjczXkEyXkFqcGc@._V1_FMjpg_UY3000_.jpg",
+    name:"Love Unseen Beneath the Clear Night Sky (2026)",
+    time:"4h 48m | 12 Eps",
+    dub:"English",
+    genre:["Romance","Drama","Supernatural"],
+    type:"episode",
+    link:"https://youtube.com/playlist?list=PLREG7U2qOWss&si=cTDVaaJAUMFvMLyn"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFPaS5RyGmBuMRKAWvbKox-wYy0XzTP0OK0RV8xHiIlEj8mLcLuZwuPKUsTJgJkdXSBxAE&s=10",
+    name:"《JUJUTSU KAISEN》|《咒術迴戰》",
+    time:"9h 36m | 24 Eps",
+    dub:"Japanese",
+    genre:["Action","Fantasy","Supernatural"],
+    type:"episode",
+    link:"https://www.youtube.com/watch?v=miiLadou1cw&list=PLxSscENEp7JhP1ek-2ebVRfyirmcjkNOg"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRtimVgps2raTKa4zKpw0kIvRpKvMxOgw5rD2oqNWfKHjHc95IdAg00_5RYea-mWJT5Ahb&s=10",
+    name:"More than a married couple, but not lovers",
+    time:"4h 48m | 12 Eps",
+    dub:"Japan",
+    genre:["Comedy","Romance","Drama","Ecchi","School"],
+    type:"episode",
+    link:"https://youtube.com/playlist?list=PLhpMvmtHsuqKD4y2Zf9omd8vIy8kIC8lh&si=aDtJzIu3UqmUwrYK"
+  },
+  {
+    img:"https://thumb.wikimedia.org/wikipedia/en/thumb/7/7f/You_and_I_Are_Polar_Opposites_vol._1_cover.jpg/250px-You_and_I_Are_Polar_Opposites_vol._1_cover.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    name:"You and I Are Polar Opposites",
+    time:"4h 48m | 12 Eps",
+    dub:"Japan",
+    genre:["Comedy","Romance","School","Slice of Life"],
+    type:"episode",
+    link:"https://www.youtube.com/playlist?list=PLhpMvmtHsuqKJR6b4czkRFooRYKv1SAPl"
+  },
+  {
+    img:"https://upload.wikimedia.org/wikipedia/zh/5/53/Bleach_cover_01.jpg?utm_source=zh.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    name:"《BLEACH 死神》",
+    time:"155h 38m",
+    dub:"Japan",
+    genre:["Action","Adventure","Supernatural","Shounen"],
+    type:"episode",
+    link:"https://www.youtube.com/playlist?list=PLxSscENEp7JjESRYoluizbfS2sZGm_1Bi"
+  },
+  {
+    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSooingmJYWhYMSAUWBUI0cZtNE3Xh82eDXPaX3B3bFdthG_kOGN0jLXpmUZX_eqIRny8Lb&s=10",
+    name:"BLEACH: Thousand-Year Blood War",
+    time:"16h",
+    dub:"Japan",
+    genre:["Action","Adventure","Supernatural","Shounen"],
+    type:"episode",
+    link:"https://www.youtube.com/playlist?list=PLCtyJHQA5z_I"
+  },
+  {
+    img:"",
+    name:"",
+    time:"",
+    dub:"",
+    genre:[""],
+    type:"",
+    link:""
+  },
+  {
+    img:"",
+    name:"",
+    time:"",
+    dub:"",
+    genre:[""],
+    type:"",
+    link:""
+  },
+
+];
+
+function createCard(a){
+  return `<div class="card">
+    <img src="${a.img}" onerror="this.src='https://via.placeholder.com/170x250/161616/ff0055?text=No+Image'">
+    <div class="info">
+      <h3>${a.name}</h3>
+      <div class="time"><font color="#FF0000">◉</font> ${a.time}</div>
+      <div class="tags"><span class="tag">${a.dub}</span>${a.genre.map(g=>`<span class="tag">${g}</span>`).join('')}</div>
+      <a class="btn" href="${a.link}" target="_blank">WATCH NOW</a>
+    </div>
+  </div>`;
+}
+
+document.getElementById('filmGrid').innerHTML = animes.filter(a=>a.type==="film").map(createCard).join('');
+document.getElementById('episodeGrid').innerHTML = animes.filter(a=>a.type==="episode").map(createCard).join('');
+</script>
+
+</body>
+</html>
